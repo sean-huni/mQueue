@@ -41,4 +41,5 @@ cmd$: `docker run --name='rabbitmq' -d -it -p 8082:15672 -p 8092:5672 -P rabbitm
 
 # Git
 - Remove cached file/folders:
+
 cmd$: `git rm -r --cached --force ".idea/"`
