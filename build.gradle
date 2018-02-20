@@ -54,9 +54,9 @@ artifactory {
 }
 
 
-archivesBaseName = 'consumer'
+archivesBaseName = 'mqueue'
 war {
-	archiveName = 'consumer.war'
+	archiveName = 'mqueue.war'
 }
 
 
@@ -81,7 +81,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-validation')
 	compile('de.codecentric:spring-boot-admin-starter-client')
 	compile('de.codecentric:spring-boot-admin-starter-server')
-//	compile('org.springframework.shell:spring-shell-starter:2.0.0.M2')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')

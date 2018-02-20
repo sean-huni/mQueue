@@ -1,5 +1,5 @@
 # Configuration
-Setup Instructions used to prepare the environment for program-execution.
+    Setup Instructions used to prepare the environment for program-execution.
 
 # ActiveMq Dockerfile 
 `FROM webcenter/activemq`
@@ -39,7 +39,12 @@ cmd$: `docker run --name='rabbitmq' -d -it -P rabbitmq-img`
 ## Run the rabbitmq docker instance from the rabbitmq-img mapped to the designated & random ports.
 cmd$: `docker run --name='rabbitmq' -d -it -p 8082:15672 -p 8092:5672 -P rabbitmq-img`
 
+## Queue
+    Create sms queues both in activeMq & in RabbitMq.
+    
+## JFrog-Artifactory
+
+
 # Git
 - Remove cached file/folders:
-
-cmd$: `git rm -r --cached --force ".idea/"`
+- **cmd$: `git rm -r --cached --force ".idea/"`**
