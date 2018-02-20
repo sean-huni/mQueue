@@ -1,0 +1,99 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+        jcenter()
+	}
+	dependencies {
+	    //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+apply plugin: "com.jfrog.artifactory"
+
+group = 'xyz.service.msg'
+version = '0.0.1'
+sourceCompatibility = 1.8
+
+
+allprojects {
+	apply plugin: "com.jfrog.artifactory"
+}
+
+def artifactory_user="dev"
+def artifactory_password="d3v_p@ssw0rd!"
+def artifactory_contextUrl="http://localhost:8081/artifactory"
+
+
+artifactory {
+	contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+	publish {
+		repository {
+			repoKey = 'gradle-dev-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+			maven = true
+		}
+}
+	resolve {
+		repository {
+			repoKey = 'gradle-release'
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+			maven = true
+
+		}
+	}
+}
+
+
+archivesBaseName = 'consumer'
+war {
+	archiveName = 'consumer.war'
+}
+
+
+configurations {
+	providedRuntime
+}
+
+ext {
+	springBootAdminVersion = '1.5.7'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-actuator-docs')
+	compile('org.springframework.boot:spring-boot-starter-activemq')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-amqp')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-integration')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-validation')
+	compile('de.codecentric:spring-boot-admin-starter-client')
+	compile('de.codecentric:spring-boot-admin-starter-server')
+//	compile('org.springframework.shell:spring-shell-starter:2.0.0.M2')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	runtime('com.h2database:h2')
+	runtime('mysql:mysql-connector-java')
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	compileOnly('org.projectlombok:lombok')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.security:spring-security-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+	}
+}
