@@ -35,6 +35,6 @@ public class DBOps {
         queueObj.setDtUpdated(new DateUtilToSQLTimestamp().convert(new Date()));
         LOGGER.info("Queue-Entry: {}", queueObj);
 
-        queueService.saveOrUpdate(queueObj);
+//        queueService.saveOrUpdate(queueObj);
     }
 }
