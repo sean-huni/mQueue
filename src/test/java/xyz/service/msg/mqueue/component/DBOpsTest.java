@@ -7,9 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import xyz.service.msg.mqueue.dao.DBOpsService;
+import xyz.service.msg.mqueue.dao.impl.DBOps;
 
 import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 
@@ -24,7 +27,11 @@ import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 @DirtiesContext
 @SpringBootTest
 public class DBOpsTest {
-private static final Logger LOGGER = LoggerFactory.getLogger(DBOpsTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DBOpsTest.class);
+
+//    @Autowired
+//    DBOpsService opsService;
+
     @BeforeClass
     public static void setUp() {
         LOGGER.info(LINE_SEPARATOR, "Initiating...");
@@ -38,7 +45,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(DBOpsTest.class);
     @Ignore("DB configuration not done.")
     @Test
     public void saveToDb() {
-        DBOps ops = new DBOps();
-        ops.saveToDb("Test", "Delta-Tango", "queued");
+        DBOps opsService = new DBOps();
+        opsService.saveToDb("Test", "Delta-Tango", "queued");
     }
 }

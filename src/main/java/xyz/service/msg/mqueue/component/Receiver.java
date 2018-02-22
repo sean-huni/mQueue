@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import xyz.service.msg.mqueue.dao.impl.DBOps;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -26,10 +27,10 @@ public class Receiver {
     private static final String RABBITMQ = "rabbitMq";
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
     private CountDownLatch latch = new CountDownLatch(1);
+    private DBOps opsService = new DBOps();
 
 //    @Autowired
-//    private QueueService queueService;
-
+//    private DBOpsService dbOpsService;
 
     public CountDownLatch getLatch() {
         return latch;
@@ -46,7 +47,7 @@ public class Receiver {
         LOGGER.info("Incoming ActiveMq...");
         LOGGER.info("Message Received='{}'", message);
         LOGGER.info("Saving to Database...");
-        new DBOps().saveToDb(ACTIVEMQ, message, QUEUE_STATUS);
+        opsService.saveToDb(ACTIVEMQ, message, QUEUE_STATUS);
         LOGGER.info("Saved to Database!");
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
     }
@@ -62,7 +63,7 @@ public class Receiver {
         LOGGER.info("Incoming RabbitMq...");
         LOGGER.info("Message Received='{}'", message);
         LOGGER.info("Saving to Database...");
-        new DBOps().saveToDb(RABBITMQ, message, QUEUE_STATUS);
+        opsService.saveToDb(RABBITMQ, message, QUEUE_STATUS);
         LOGGER.info("Saved to Database!");
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
     }

@@ -27,9 +27,9 @@ allprojects {
 	apply plugin: "com.jfrog.artifactory"
 }
 
-def artifactory_user="dev"
-def artifactory_password="d3v_p@ssw0rd!"
-def artifactory_contextUrl="http://localhost:8081/artifactory"
+def artifactory_user="admin"
+def artifactory_password="admin"
+def artifactory_contextUrl="http://localhost:8083/artifactory"
 
 
 artifactory {
@@ -44,7 +44,7 @@ artifactory {
 }
 	resolve {
 		repository {
-			repoKey = 'gradle-release'
+			repoKey = 'gradle-dev'
 			username = "${artifactory_user}"
 			password = "${artifactory_password}"
 			maven = true
