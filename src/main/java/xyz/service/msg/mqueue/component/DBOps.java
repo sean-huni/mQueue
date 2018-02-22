@@ -24,6 +24,13 @@ public class DBOps {
     @Autowired
     private QueueService queueService;
 
+    /**
+     *
+     *
+     * @param system
+     * @param msg
+     * @param status
+     */
     protected void saveToDb(final String system, final String msg, final String status ){
         Queue queueObj = new Queue();
 //        queueObj.setId(1);
