@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * TIME      : 22:49
  */
 
-//@ComponentScan(basePackages = "xyz.service.msg.mqueue")
+
 @DirtiesContext
 @SpringBootTest
 @RunWith(SpringRunner.class)

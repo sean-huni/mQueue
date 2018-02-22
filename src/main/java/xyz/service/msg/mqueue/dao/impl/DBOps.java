@@ -2,10 +2,9 @@ package xyz.service.msg.mqueue.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import xyz.service.msg.mqueue.convertor.DateUtilToSQLTimestamp;
+import xyz.service.msg.mqueue.dao.DBOpsService;
 import xyz.service.msg.mqueue.domain.Queue;
-import xyz.service.msg.mqueue.service.QueueService;
 
 import java.util.Date;
 
@@ -18,14 +17,14 @@ import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
  * DATE      : 18-February-2018
  * TIME      : 21:11
  */
-public class DBOps {
+public class DBOps implements DBOpsService{
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOps.class);
 
 //    @Autowired
 //    private QueueService queueService;
 
     /**
-     *
+     * Save to Database operation.
      *
      * @param system
      * @param msg

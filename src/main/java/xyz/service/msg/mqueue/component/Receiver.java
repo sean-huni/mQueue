@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import xyz.service.msg.mqueue.dao.DBOpsService;
 import xyz.service.msg.mqueue.dao.impl.DBOps;
 
 import java.util.concurrent.CountDownLatch;
@@ -27,10 +28,8 @@ public class Receiver {
     private static final String RABBITMQ = "rabbitMq";
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
     private CountDownLatch latch = new CountDownLatch(1);
-    private DBOps opsService = new DBOps();
 
-//    @Autowired
-//    private DBOpsService dbOpsService;
+    private DBOpsService opsService = new DBOps();
 
     public CountDownLatch getLatch() {
         return latch;
