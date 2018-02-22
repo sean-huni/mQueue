@@ -42,7 +42,7 @@ public class DBOpsTest {
         LOGGER.info(LINE_SEPARATOR, "Terminating...");
     }
 
-//    @Ignore("DB configuration not done.")
+    @Ignore("DB configuration not done.")
     @Test
     public void saveToDb() {
         DBOps opsService = new DBOps();
