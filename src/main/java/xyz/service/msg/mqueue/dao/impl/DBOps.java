@@ -1,4 +1,4 @@
-package xyz.service.msg.mqueue.component;
+package xyz.service.msg.mqueue.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +21,10 @@ import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
 public class DBOps {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOps.class);
 
-    @Autowired
-    private QueueService queueService;
+//    @Autowired
+//    private QueueService queueService;
 
-    protected void saveToDb(final String system, final String msg, final String status ){
+    public void saveToDb(final String system, final String msg, final String status) {
         Queue queueObj = new Queue();
 //        queueObj.setId(1);
         queueObj.setChannel(QUEUE_NAME);
