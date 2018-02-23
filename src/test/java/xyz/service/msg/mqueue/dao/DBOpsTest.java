@@ -2,15 +2,14 @@ package xyz.service.msg.mqueue.dao;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import xyz.service.msg.mqueue.dao.impl.DBOps;
 
 import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 
@@ -27,8 +26,8 @@ import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 public class DBOpsTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOpsTest.class);
 
-//    @Autowired
-//    DBOpsService opsService;
+    @Autowired
+    DBOpsService opsService;
 
     @BeforeClass
     public static void setUp() {
@@ -40,10 +39,10 @@ public class DBOpsTest {
         LOGGER.info(LINE_SEPARATOR, "Terminating...");
     }
 
-    @Ignore("DB configuration not done.")
+    //    @Ignore("DB configuration not done.")
     @Test
     public void saveToDb() {
-        DBOps opsService = new DBOps();
+//        DBOps opsService = new DBOps();
         opsService.saveToDb("Test", "Delta-Tango", "queued");
     }
 }

@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @Table(name = "queue", schema = "logs")
 public class Queue{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Integer id;
     private String system;   //Queueing Service
