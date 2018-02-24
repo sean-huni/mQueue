@@ -44,6 +44,20 @@ cmd$: `docker run --name='rabbitmq' -d -it -p 8082:15672 -p 8092:5672 -P rabbitm
     
 ## JFrog-Artifactory
 
+### Dockerfile
+`FROM docker.bintray.io/jfrog/artifactory-oss:latest`
+
+`LABEL Kudzai Sean Huni <kudzai@bcs.org>`
+
+`RUN apt-get update -y`
+
+### Run CMD
+`docker build -f Dockerfile -t jfrog-img .`
+`docker run --name='jfrog' -d -it -p 8083:8081 jfrog-img`
+
+### JFrog-Artifactory Configuration
+On the web-console initialise gradle Jfrog plugin.
+username & password: admin
 
 # Git
 - Remove cached file/folders:
