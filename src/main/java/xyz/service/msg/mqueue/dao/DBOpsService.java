@@ -11,7 +11,15 @@ import xyz.service.msg.mqueue.domain.Queue;
  * CELL    : +27-78-683-1982
  */
 public interface DBOpsService {
-    void saveToDb(final String system, final String msg, final String status);
+    /**
+     * Upper-layer Save Operation to the Database.
+     *
+     * @param uuid   Unique Transaction Identifier
+     * @param system ActiveMq or RabbitMq
+     * @param msg    Message tom be saved.
+     * @param status Queued or Dequeued.
+     */
+    void saveToDb(final String uuid, final String system, final String msg, final String status);
 
     Iterable<Queue> findAll();
 }

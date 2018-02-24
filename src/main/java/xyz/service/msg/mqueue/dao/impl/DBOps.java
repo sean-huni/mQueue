@@ -21,7 +21,7 @@ import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
  * TIME      : 21:11
  */
 @Service
-public class DBOps implements DBOpsService{
+public class DBOps implements DBOpsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOps.class);
 
     @Autowired
@@ -31,15 +31,16 @@ public class DBOps implements DBOpsService{
      * Save to Database operation.
      *
      * @param system Queueing Service: either ActiveMq or RabbitMq.
-     * @param msg Payload passed as string.
+     * @param msg    Payload passed as string.
      * @param status Queued or Dequeued.
      */
-    public void saveToDb(final String system, final String msg, final String status) {
-        Queue queueObj = new Queue();
+    public void saveToDb(final String uuid, final String system, final String msg, final String status) {
+        final Queue queueObj = new Queue();
 //        queueObj.setId(1);
         queueObj.setChannel(QUEUE_NAME);
         queueObj.setSystem(system);
         queueObj.setMessage(msg);
+        queueObj.setUuid(uuid);
         queueObj.setStatus(status);
         queueObj.setDtCreated(new DateUtilToSQLTimestamp().convert(new Date()));
         queueObj.setDtUpdated(new DateUtilToSQLTimestamp().convert(new Date()));

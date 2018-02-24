@@ -8,10 +8,11 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
+import xyz.service.msg.mqueue.dao.DBOpsService;
+import xyz.service.msg.mqueue.util.Util;
 
 import static org.springframework.amqp.core.MessageProperties.CONTENT_TYPE_TEXT_PLAIN;
-import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
-import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
+import static xyz.service.msg.mqueue.constant.Constant.*;
 
 /**
  * PROJECT   : msg-consumer
@@ -31,6 +32,8 @@ public class Sender {
     @Autowired
     private JmsTemplate jmsTemplate;
 
+    @Autowired
+    private DBOpsService opsService;
 
     /**
      * Sends a new message to the RabbitMq
@@ -64,6 +67,7 @@ public class Sender {
      * @param sms String message to be sent to the RabbitMq.
      */
     private void sendToRabbitMq(String sms) {
+        final String uuid = new Util().getUUID();
         LOGGER.info(LINE_SEPARATOR, Sender.class);
         LOGGER.info("Sending RabbitMq message: {}", sms);
         MessageProperties messageProperties = new MessageProperties();
@@ -75,6 +79,9 @@ public class Sender {
         rabbitTemplate.setQueue(QUEUE_NAME);
         rabbitTemplate.send(message);
         LOGGER.info("Outgoing RabbitMq Message sent!");
+        LOGGER.info("Saving RabbitMq Message...");
+        opsService.saveToDb(uuid, RABBITMQ, sms, QUEUE_STATUS_QUEUED);
+        LOGGER.info("RabbitMq Message Saved!!!");
         LOGGER.info(LINE_SEPARATOR, Sender.class);
     }
 
@@ -84,11 +91,15 @@ public class Sender {
      * @param sms String message to be sent to the RabbitMq.
      */
     private void sendToActiveMq(String sms) {
+        final String uuid = new Util().getUUID();
         LOGGER.info(LINE_SEPARATOR, Sender.class);
         LOGGER.info("Sending ActiveMq Message: {}", sms);
         jmsTemplate.setDefaultDestinationName(QUEUE_NAME);
         jmsTemplate.convertAndSend(sms);
         LOGGER.info("Outgoing ActiveMq Message sent!");
+        LOGGER.info("Saving ActiveMq Message...");
+        opsService.saveToDb(uuid, ACTIVEMQ, sms, QUEUE_STATUS_QUEUED);
+        LOGGER.info("ActiveMq Message Saved!!!");
         LOGGER.info(LINE_SEPARATOR, Sender.class);
     }
 }
