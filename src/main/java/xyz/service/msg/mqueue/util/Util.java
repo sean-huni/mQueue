@@ -1,5 +1,6 @@
 package xyz.service.msg.mqueue.util;
 
+
 import java.util.UUID;
 
 /**
@@ -16,7 +17,7 @@ public class Util {
      *
      * @return String Unique Transaction ID.
      */
-    public String uuid() {
-        return new UUID(999999, 9999999).toString();
+    public String getUUID() {
+        return UUID.randomUUID().toString();
     }
 }

@@ -14,12 +14,12 @@ public interface DBOpsService {
     /**
      * Upper-layer Save Operation to the Database.
      *
+     * @param uuid   Unique Transaction Identifier
      * @param system ActiveMq or RabbitMq
-     * @param msg Message tom be saved.
+     * @param msg    Message tom be saved.
      * @param status Queued or Dequeued.
-     * @param uuid Unique Transaction Identifier
      */
-    void saveToDb(final String system, final String msg, final String status, final String uuid);
+    void saveToDb(final String uuid, final String system, final String msg, final String status);
 
     Iterable<Queue> findAll();
 }

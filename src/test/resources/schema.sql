@@ -5,7 +5,8 @@ CREATE SCHEMA IF NOT EXISTS queue;
 
 CREATE TABLE log (
   id        INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  system    VARCHAR(24)  NOT NULL,
+  uuid      VARCHAR(24)  NOT NULL UNIQUE,
+  system    VARCHAR(255) NOT NULL,
   channel   VARCHAR(24)  NOT NULL,
   status    VARCHAR(24)  NOT NULL,
   message   VARCHAR(999) NOT NULL,

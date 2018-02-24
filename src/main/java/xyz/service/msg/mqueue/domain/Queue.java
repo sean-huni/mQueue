@@ -17,16 +17,18 @@ import java.sql.Timestamp;
 @Setter
 @Entity
 @Table(name = "queue", schema = "logs")
-public class Queue{
+public class Queue {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Integer id;
+    @Column(name = "uuid", unique = true)
+    private String uuid;
     private String system;   //Queueing Service
     private String channel;  //Queue Name
     private String status;   //Queued/De-Queued
     private String message;
-    private String uuid;
+
     private Timestamp dtCreated;
     private Timestamp dtUpdated;
 
@@ -36,11 +38,11 @@ public class Queue{
     public String toString() {
         return "Queue{" +
                 "id=" + id +
+                ", uuid='" + uuid + '\'' +
                 ", system='" + system + '\'' +
                 ", channel='" + channel + '\'' +
                 ", status='" + status + '\'' +
                 ", message='" + message + '\'' +
-                ", uuid='" + uuid + '\'' +
                 ", dtCreated=" + dtCreated +
                 ", dtUpdated=" + dtUpdated +
                 '}';

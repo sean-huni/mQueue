@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import xyz.service.msg.mqueue.dao.DBOpsService;
+import xyz.service.msg.mqueue.util.Util;
 
 import java.util.concurrent.CountDownLatch;
 
-import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
-import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
+import static xyz.service.msg.mqueue.constant.Constant.*;
 
 /**
  * PROJECT   : msg-consumer
@@ -23,9 +23,6 @@ import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
 
 @Component("mqReceiver")
 public class Receiver {
-    private static final String QUEUE_STATUS = "dequeued";
-    private static final String ACTIVEMQ = "activeMq";
-    private static final String RABBITMQ = "rabbitMq";
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
     private CountDownLatch latch = new CountDownLatch(1);
 
@@ -43,11 +40,12 @@ public class Receiver {
      */
     @JmsListener(destination = QUEUE_NAME) //, containerFactory = "smsFactory")
     public void onMessage(String message) {
+        final String uuid = new Util().getUUID();
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
         LOGGER.info("Incoming ActiveMq...");
         LOGGER.info("Message Received='{}'", message);
         LOGGER.info("Saving to Database...");
-        opsService.saveToDb(ACTIVEMQ, message, QUEUE_STATUS);
+        opsService.saveToDb(uuid, ACTIVEMQ, message, QUEUE_STATUS_DEQUEUED);
         LOGGER.info("Saved to Database!");
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
     }
@@ -59,11 +57,12 @@ public class Receiver {
      */
     @RabbitListener(queues = QUEUE_NAME)
     public void inMessage(String message) {
+        final String uuid = new Util().getUUID();
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
         LOGGER.info("Incoming RabbitMq...");
         LOGGER.info("Message Received='{}'", message);
         LOGGER.info("Saving to Database...");
-        opsService.saveToDb(RABBITMQ, message, QUEUE_STATUS);
+        opsService.saveToDb(uuid, RABBITMQ, message, QUEUE_STATUS_DEQUEUED);
         LOGGER.info("Saved to Database!");
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
     }
