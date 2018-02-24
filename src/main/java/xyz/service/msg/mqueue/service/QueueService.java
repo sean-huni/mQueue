@@ -1,6 +1,5 @@
 package xyz.service.msg.mqueue.service;
 
-import org.springframework.stereotype.Service;
 import xyz.service.msg.mqueue.domain.Queue;
 
 /**
@@ -11,7 +10,6 @@ import xyz.service.msg.mqueue.domain.Queue;
  * TIME      : 14:45
  */
 
-@Service
 public interface QueueService extends CRUDService<Queue> {
 
 }

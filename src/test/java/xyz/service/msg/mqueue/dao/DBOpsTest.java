@@ -2,15 +2,20 @@ package xyz.service.msg.mqueue.dao;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import xyz.service.msg.mqueue.domain.Queue;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 
 /**
@@ -23,11 +28,13 @@ import static xyz.service.msg.mqueue.constant.Constant.LINE_SEPARATOR;
 @RunWith(SpringRunner.class)
 @DirtiesContext
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DBOpsTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOpsTest.class);
+    private final String system = "Test", msg = "Delta-Tango", status = "queued";
 
     @Autowired
-    DBOpsService opsService;
+    private DBOpsService dBOpsService;
 
     @BeforeClass
     public static void setUp() {
@@ -39,10 +46,23 @@ public class DBOpsTest {
         LOGGER.info(LINE_SEPARATOR, "Terminating...");
     }
 
-    //    @Ignore("DB configuration not done.")
     @Test
-    public void saveToDb() {
+    public void a_saveToDb() {
 //        DBOps opsService = new DBOps();
-        opsService.saveToDb("Test", "Delta-Tango", "queued");
+        dBOpsService.saveToDb(system, msg, status);
+    }
+
+    @Test
+    public void b_findQueue() {
+        final Iterable<Queue> queueIterable = dBOpsService.findAll();
+
+        final Queue queue = queueIterable.iterator().next();    //dBOpsService.findById(10);
+
+        LOGGER.info("Queue ID: {}", queue.getId());
+
+        assertNotNull(queue);
+        assertTrue(queue.getSystem().equals(system));
+        assertTrue(queue.getMessage().equals(msg));
+        assertTrue(queue.getStatus().equals(status));
     }
 }

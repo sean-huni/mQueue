@@ -3,10 +3,10 @@ package xyz.service.msg.mqueue.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import xyz.service.msg.mqueue.dao.DBOpsService;
-import xyz.service.msg.mqueue.dao.impl.DBOps;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -29,7 +29,8 @@ public class Receiver {
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private DBOpsService opsService = new DBOps();
+    @Autowired
+    private DBOpsService opsService;
 
     public CountDownLatch getLatch() {
         return latch;

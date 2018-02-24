@@ -1,6 +1,6 @@
 package xyz.service.msg.mqueue.dao;
 
-import org.springframework.stereotype.Service;
+import xyz.service.msg.mqueue.domain.Queue;
 
 /**
  * PACKAGE : xyz.service.msg.mqueue.dao
@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
  * E-MAIL  : kudzai@tangentsolutions.co.za
  * CELL    : +27-78-683-1982
  */
-@Service
 public interface DBOpsService {
     void saveToDb(final String system, final String msg, final String status);
+
+    Iterable<Queue> findAll();
 }
