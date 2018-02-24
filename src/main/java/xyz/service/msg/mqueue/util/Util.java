@@ -11,6 +11,11 @@ import java.util.UUID;
  */
 public class Util {
 
+    /**
+     * Generates a Unique Transaction ID.
+     *
+     * @return String Unique Transaction ID.
+     */
     public String uuid() {
         return new UUID(999999, 9999999).toString();
     }

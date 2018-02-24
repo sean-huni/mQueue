@@ -34,12 +34,13 @@ public class DBOps implements DBOpsService{
      * @param msg Payload passed as string.
      * @param status Queued or Dequeued.
      */
-    public void saveToDb(final String system, final String msg, final String status) {
+    public void saveToDb(final String system, final String msg, final String status, final String uuid) {
         Queue queueObj = new Queue();
 //        queueObj.setId(1);
         queueObj.setChannel(QUEUE_NAME);
         queueObj.setSystem(system);
         queueObj.setMessage(msg);
+        queueObj.setUuid(uuid);
         queueObj.setStatus(status);
         queueObj.setDtCreated(new DateUtilToSQLTimestamp().convert(new Date()));
         queueObj.setDtUpdated(new DateUtilToSQLTimestamp().convert(new Date()));

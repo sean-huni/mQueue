@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.service.msg.mqueue.domain.Queue;
+import xyz.service.msg.mqueue.util.Util;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -48,8 +49,12 @@ public class DBOpsTest {
 
     @Test
     public void a_saveToDb() {
-//        DBOps opsService = new DBOps();
-        dBOpsService.saveToDb(system, msg, status);
+        final String uuid;
+
+        uuid = new Util().uuid();
+
+
+        dBOpsService.saveToDb(system, msg, status, uuid);
     }
 
     @Test

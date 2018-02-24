@@ -26,6 +26,7 @@ public class Queue{
     private String channel;  //Queue Name
     private String status;   //Queued/De-Queued
     private String message;
+    private String uuid;
     private Timestamp dtCreated;
     private Timestamp dtUpdated;
 
@@ -39,6 +40,7 @@ public class Queue{
                 ", channel='" + channel + '\'' +
                 ", status='" + status + '\'' +
                 ", message='" + message + '\'' +
+                ", uuid='" + uuid + '\'' +
                 ", dtCreated=" + dtCreated +
                 ", dtUpdated=" + dtUpdated +
                 '}';
