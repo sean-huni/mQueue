@@ -62,3 +62,5 @@ username & password: admin
 # Git
 - Remove cached file/folders:
 - **cmd$: `git rm -r --cached --force ".idea/"`**
+
+- Using the Successful-branching model: `http://nvie.com/posts/a-successful-git-branching-model/`
