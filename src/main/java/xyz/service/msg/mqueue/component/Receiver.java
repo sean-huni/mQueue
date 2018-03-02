@@ -41,6 +41,7 @@ public class Receiver {
     @JmsListener(destination = QUEUE_NAME) //, containerFactory = "smsFactory")
     public void onMessage(String message) {
         final String uuid = new Util().getUUID();
+
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
         LOGGER.info("Incoming ActiveMq...");
         LOGGER.info("Message Received='{}'", message);
