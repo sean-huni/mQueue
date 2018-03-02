@@ -17,4 +17,13 @@ public class Message {
     private Long id;
     private String word;
     private Phone phone;
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", word='" + word + '\'' +
+                ", phone=" + phone +
+                '}';
+    }
 }

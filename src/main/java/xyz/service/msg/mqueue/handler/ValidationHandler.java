@@ -18,13 +18,13 @@ public class ValidationHandler {
     private MessageValidator messageValidator = new MessageValidator();
     private PhoneValidator phoneValidator = new PhoneValidator();
 
-    public void validateMessageInput(Message message, Errors errors) {
+    public void validateMessageInput(Message message, Errors errorsMsg, Errors errorsPhone) {
         if (messageValidator.supports(Message.class)) {
-            messageValidator.validate(message, errors);
-        }
+            messageValidator.validate(message, errorsMsg);
+        } else errorsMsg.reject(Message.class.getSimpleName(), "Class not supported for validation.");
 
         if (phoneValidator.supports(Phone.class)) {
-            phoneValidator.validate(message.getPhone(), errors);
-        }
+            phoneValidator.validate(message.getPhone(), errorsPhone);
+        } else errorsPhone.reject(Phone.class.getSimpleName(), "Class not supported for validation.");
     }
 }

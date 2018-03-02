@@ -1,5 +1,8 @@
 package xyz.service.msg.mqueue.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * PACKAGE : xyz.service.msg.mqueue.domain
  * USER    : Kudzai Sean Huni
@@ -8,24 +11,17 @@ package xyz.service.msg.mqueue.domain;
  * E-MAIL  : kudzai@tangentsolutions.co.za
  * CELL    : +27-78-683-1982
  */
+@Getter
+@Setter
 public class Phone {
     private String code;
     private String isdn;
 
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public String getIsdn() {
-        return this.isdn;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setIsdn(String isdn) {
-        this.isdn = isdn;
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "code='" + code + '\'' +
+                ", isdn='" + isdn + '\'' +
+                '}';
     }
 }

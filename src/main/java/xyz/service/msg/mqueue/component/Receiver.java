@@ -29,6 +29,7 @@ import static xyz.service.msg.mqueue.constant.Constant.*;
 @Component("mqReceiver")
 public class Receiver {
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
+
     private CountDownLatch latch = new CountDownLatch(1);
 
     @Autowired
@@ -39,7 +40,8 @@ public class Receiver {
     }
 
     /**
-     * ActiveMq {@link JmsListener} for intercepting queued-messages on ActiveMq.
+     * ActiveMq {@link JmsListener} for intercepting queued-json-messages
+     * from ActiveMq.
      *
      * @param input {@link String} message to be received from the ActiveMq.
      */
@@ -54,18 +56,20 @@ public class Receiver {
 
         Gson gson = new Gson();
         Message message = gson.fromJson(input, Message.class);
-        Errors errors = new BeanPropertyBindingResult(message, "message");
+        Errors errorsMsg = new BeanPropertyBindingResult(message, QUEUE_MESSAGE);
+        Errors errorsPhone = new BeanPropertyBindingResult(message.getPhone(), QUEUE_PHONE);
 
         LOGGER.info("Performing validation.");
-        validationHandler.validateMessageInput(message, errors);
+        validationHandler.validateMessageInput(message, errorsMsg, errorsPhone);
 
         //Save only when passed validation.
-        if (errors.hasErrors()) {
+        if (!errorsMsg.hasErrors() && !errorsPhone.hasErrors()) {
             LOGGER.info("Saving to Database...");
             opsService.saveToDb(uuid, ACTIVEMQ, input, QUEUE_STATUS_DEQUEUED);
             LOGGER.info("Saved to Database!");
         } else {
-            LOGGER.error("Errors found: {}", errors.getAllErrors());
+            LOGGER.error("errorsMsg found: {}", errorsMsg.getAllErrors());
+            LOGGER.error("errorsPhone found: {}", errorsPhone.getAllErrors());
         }
 
         LOGGER.info(LINE_SEPARATOR, Receiver.class);
