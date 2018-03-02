@@ -83,6 +83,7 @@ dependencies {
 	compile('de.codecentric:spring-boot-admin-starter-server')
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile("org.springframework.boot:spring-boot-starter-web")
+	compile('com.google.code.gson:gson')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')

@@ -1,5 +1,6 @@
 package xyz.service.msg.mqueue.component;
 
+import com.google.gson.Gson;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import xyz.service.msg.mqueue.domain.Message;
+import xyz.service.msg.mqueue.domain.Phone;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,8 +52,21 @@ public class SendAndReceiveTest {
 
     @Test
     public void activeMqTest() throws Exception {
+        final Message message = new Message();
+        final Phone phone = new Phone();
         final String codeWord = "Alpha-Mike";
-        sender.sendActiveMqMsg(codeWord);
+
+        phone.setCode("064");
+        phone.setIsdn("9068-809");
+
+        message.setWord(codeWord);
+        message.setId(1L);
+        message.setPhone(phone);
+
+        Gson gson = new Gson();
+        String output = gson.toJson(message);
+
+        sender.sendActiveMqMsg(output);
 
         receiver.getLatch().await(5000, TimeUnit.MILLISECONDS);
         assertThat((Long) receiver.getLatch().getCount()).isEqualTo(1);
