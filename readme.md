@@ -1,3 +1,6 @@
+# About
+mQueue project was developed using Springboot to demonstrate efficient testing for Queues (ActiveMq & RabbitMq implemented within Docker).
+
 # Configuration
     Setup Instructions used to prepare the environment for program-execution.
 
