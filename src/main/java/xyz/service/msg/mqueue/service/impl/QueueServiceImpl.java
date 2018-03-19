@@ -15,9 +15,12 @@ import xyz.service.msg.mqueue.service.QueueService;
  */
 @Service
 public class QueueServiceImpl implements QueueService {
+    private QueueRepo queueRepo;
 
     @Autowired
-    private QueueRepo queueRepo;
+    public void setQueueRepo(QueueRepo queueRepo) {
+        this.queueRepo = queueRepo;
+    }
 
     @Override
     public Iterable<?> findAll() {

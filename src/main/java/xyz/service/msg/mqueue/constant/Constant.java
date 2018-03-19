@@ -17,4 +17,6 @@ public class Constant {
     public static final String QUEUE_STATUS_QUEUED = "queued";
     public static final String ACTIVEMQ = "activeMq";
     public static final String RABBITMQ = "rabbitMq";
+    public static final String QUEUE_MESSAGE = "message";
+    public static final String QUEUE_PHONE = "phone";
 }

@@ -25,22 +25,30 @@ import static xyz.service.msg.mqueue.constant.Constant.*;
 public class Sender {
     private static final String ROUTING_KEY_NAME = "sms";
     private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
-
-    @Autowired
     private RabbitTemplate rabbitTemplate;
-
-    @Autowired
     private JmsTemplate jmsTemplate;
+    private DBOpsService opsService;
 
     @Autowired
-    private DBOpsService opsService;
+    public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    @Autowired
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
+    }
+
+    @Autowired
+    public void setOpsService(DBOpsService opsService) {
+        this.opsService = opsService;
+    }
 
     /**
      * Sends a new message to the RabbitMq
      *
      * @param msg String message to be sent to the RabbitMq.
      */
-//    @Async
     public void sendRabbitMqMsg(String msg) {
         sendToRabbitMq(msg);
     }
