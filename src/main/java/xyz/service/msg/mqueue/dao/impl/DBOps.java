@@ -24,8 +24,12 @@ import static xyz.service.msg.mqueue.constant.Constant.QUEUE_NAME;
 public class DBOps implements DBOpsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBOps.class);
 
-    @Autowired
     private QueueService queueService;
+
+    @Autowired
+    public void setQueueService(QueueService queueService) {
+        this.queueService = queueService;
+    }
 
     /**
      * Save to Database operation.

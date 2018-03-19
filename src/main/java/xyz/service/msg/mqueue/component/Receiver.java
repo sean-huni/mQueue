@@ -32,8 +32,12 @@ public class Receiver {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    @Autowired
     private DBOpsService opsService;
+
+    @Autowired
+    public void setOpsService(DBOpsService opsService) {
+        this.opsService = opsService;
+    }
 
     public CountDownLatch getLatch() {
         return latch;
