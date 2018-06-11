@@ -130,3 +130,8 @@ fabric.properties
 src/main/java/xyz/service/msg/mqueue/config/
 src/main/resources/db/
 src/test/java/xyz/service/msg/mqueue/service/
+.gradle/4.3-rc-2/
+.gradle/4.8/
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/vcsWorkingDirs/
