@@ -66,4 +66,7 @@ username & password: admin
 - Remove cached file/folders:
 - **cmd$: `git rm -r --cached --force ".idea/"`**
 
-- Using the Successful-branching model: `http://nvie.com/posts/a-successful-git-branching-model/`
+- [Using the Successful-branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+
+# Gradle Troubleshooting
+ - [Gradle can't recognise java 10.0.1 on Linux-Ubuntu](https://stackoverflow.com/questions/49663507/how-to-fix-gradle-not-recognizing-java-10-on-linux)
